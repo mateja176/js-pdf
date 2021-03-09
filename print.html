@@ -8,6 +8,10 @@
   </head>
   <body>
     <style>
+      * {
+        box-sizing: border-box;
+      }
+
       :root {
         --page-width: 0;
         --page-height: 0;
@@ -96,7 +100,7 @@
 
           pdf.addImage(canvas, 'PNG', 0, 0, width, height);
 
-          pdf.save()
+          pdf.save('Hello.pdf')
         });
       };
 
