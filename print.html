@@ -10,6 +10,7 @@
     <style>
       * {
         box-sizing: border-box;
+        font-family: Helvetica;
       }
 
       :root {
@@ -27,22 +28,23 @@
         flex-direction: column;
       }
 
-      .print {
+      #cover,
+      .print{
         width: var(--page-width);
-      }
-      main {
         height: var(--page-height);
         padding: 19mm;
       }
+
       main h1 {
         color: #333;
-        font-family: Helvetica;
       }
 
       footer {
-        color: #ccc;
+        width: var(--page-width);
         font-size: 11;
-        padding: 10px;
+        padding: 8mm;
+        background-color: #555;
+        color: white;
       }
     </style>
 
@@ -50,38 +52,35 @@
     <button id="print-button">Print</button>
     <hr></hr>
     <section id="print-wrapper">
+      <div id="cover">
+        <h1>Cover Page</h1>
+      </div>
       <main class="print">
         <h1>Hello World</h1>
       </main>
-      <footer class="print">
+      <footer>
         Rock the World
       </footer>
     </section>
-    <hr></hr>
-    <div id="print-preview"><h2>Preview</h2></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
     <script>
       const heightRatio = 1.414;
-      const width = 210;
-      const height = width * heightRatio;
-      document.documentElement.style.setProperty('--page-width', `${width}mm`);
-      document.documentElement.style.setProperty('--page-height', `${height}mm`);
+      const widthMM = 210;
+      const heightMM = widthMM * heightRatio;
+      document.documentElement.style.setProperty('--page-width', `${widthMM}mm`);
+      document.documentElement.style.setProperty('--page-height', `${heightMM}mm`);
 
       const printButton = document.getElementById('print-button');
-      const content = document.querySelector('main');
-      const preview = document.getElementById('print-preview');
+      const cover = document.getElementById('cover');
+      const main = document.querySelector('main');
       const footer = document.querySelector('footer');
 
       const printInWindow = (
         /** @type {{ title: string; content: Node }} */ config,
       ) => {
-        const w = window.open(
-          '',
-          'PRINT',
-          'height=650,width=900,top=100,left=150',
-        );
+        const w = window.open('', 'PRINT', 'height=650,width=900,top=100,left=150');
 
         w.document.title = config.title;
 
@@ -107,19 +106,40 @@
       };
 
       const print = () => {
-        html2canvas(content).then((/** @type {HTMLCanvasElement} */ canvas) => {
-          preview.appendChild(canvas);
+        const pdf = new jspdf.jsPDF('p', 'mm', 'a4');
 
-          const pdf = new jspdf.jsPDF('p', 'mm', 'a4');
+        Promise.all(
+          [cover, footer].map((element) => {
+            return html2canvas(element);
+          }),
+        ).then(([coverCanvas, footerCanvas]) => {
+          const pxToMM = (/** @type {number} */ px) => {
+            return px * widthMM / coverCanvas.width;
+          };
 
-          pdf.addImage(canvas, 'PNG', 0, 0, width, height);
+          pdf.addImage(coverCanvas, 'PNG', 0, 0, widthMM, heightMM);
 
-          pdf.save('Hello.pdf');
+          const footerHeightMM = pxToMM(footerCanvas.height);
+          const footerTopMM = heightMM - footerHeightMM;
+
+          Promise.all(
+            Array.from(document.getElementsByClassName('print')).map((element) => {
+              return html2canvas(element);
+            }),
+          ).then((/** @type {HTMLCanvasElement[]} */ canvases) => {
+            canvases.forEach((canvas, i) => {
+              pdf.addPage();
+              pdf.addImage(canvas, 'PNG', 0, 0, widthMM, heightMM);
+              pdf.addImage(footerCanvas, 'PNG', 0, footerTopMM, widthMM, footerHeightMM);
+            });
+
+            pdf.save('Hello.pdf');
+          });
         });
       };
 
       printButton.addEventListener('click', () => {
-        print({ title: 'Print', content });
+        print();
       });
     </script>
   </body>
