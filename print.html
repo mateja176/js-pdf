@@ -110,11 +110,11 @@
         html2canvas(content).then((/** @type {HTMLCanvasElement} */ canvas) => {
           preview.appendChild(canvas);
 
-          const pdf = new jspdf.jsPDF('p', 'mm', 'a4')
+          const pdf = new jspdf.jsPDF('p', 'mm', 'a4');
 
           pdf.addImage(canvas, 'PNG', 0, 0, width, height);
 
-          pdf.save('Hello.pdf')
+          pdf.save('Hello.pdf');
         });
       };
 
