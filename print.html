@@ -18,7 +18,7 @@
         --page-height: 0;
       }
 
-      h1 {
+      h1, p {
         margin: 0;
       }
 
@@ -45,6 +45,8 @@
         padding: 8mm;
         background-color: #555;
         color: white;
+        display: flex;
+        justify-content: space-between;
       }
     </style>
 
@@ -58,8 +60,12 @@
       <main class="print">
         <h1>Hello World</h1>
       </main>
+      <div class="print">
+        <h2>Last Page</h2>
+      </div>
       <footer>
-        Rock the World
+        <p>Rock the World</p>
+        <span id="pagination">1 / 1</span>
       </footer>
     </section>
 
@@ -109,25 +115,32 @@
         const pdf = new jspdf.jsPDF('p', 'mm', 'a4');
 
         Promise.all(
-          [cover, footer].map((element) => {
+          [cover].map((element) => {
             return html2canvas(element);
           }),
-        ).then(([coverCanvas, footerCanvas]) => {
+        ).then(([coverCanvas]) => {
           const pxToMM = (/** @type {number} */ px) => {
             return px * widthMM / coverCanvas.width;
           };
 
           pdf.addImage(coverCanvas, 'PNG', 0, 0, widthMM, heightMM);
 
-          const footerHeightMM = pxToMM(footerCanvas.height);
-          const footerTopMM = heightMM - footerHeightMM;
 
           Promise.all(
-            Array.from(document.getElementsByClassName('print')).map((element) => {
-              return html2canvas(element);
+            Array.from(document.getElementsByClassName('print')).map((element, i, a) => {
+              const pagination = footer?.querySelector('#pagination');
+
+              if (pagination) {
+                pagination.innerHTML = `${i + 1} / ${a.length}`;
+              }
+
+              return Promise.all([html2canvas(element), html2canvas(footer)]);
             }),
-          ).then((/** @type {HTMLCanvasElement[]} */ canvases) => {
-            canvases.forEach((canvas, i) => {
+            ).then((/** @type {HTMLCanvasElement[]} */ canvases) => {
+              canvases.forEach(([canvas, footerCanvas]) => {
+              const footerHeightMM = pxToMM(footerCanvas.height);
+              const footerTopMM = heightMM - footerHeightMM;
+
               pdf.addPage();
               pdf.addImage(canvas, 'PNG', 0, 0, widthMM, heightMM);
               pdf.addImage(footerCanvas, 'PNG', 0, footerTopMM, widthMM, footerHeightMM);
