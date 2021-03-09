@@ -23,27 +23,40 @@
 
       #print-wrapper {
         display: flex;
-        justify-content: center;
+        align-items: center;
+        flex-direction: column;
       }
 
-      #print-content {
-        background: #eee;
-        padding: 19mm;
+      .print {
         width: var(--page-width);
-        height: var(--page-height);
       }
-      #print-content h1 {
+      main {
+        height: var(--page-height);
+        padding: 19mm;
+      }
+      main h1 {
         color: #333;
         font-family: Helvetica;
+      }
+
+      footer {
+        color: #ccc;
+        font-size: 11;
+        padding: 10px;
       }
     </style>
 
     <h1>Print PDF</h1>
     <button id="print-button">Print</button>
     <hr></hr>
-    <div id="print-wrapper">
-      <div id="print-content"><h1>Hello World</h1></div>
-    </div>
+    <section id="print-wrapper">
+      <main class="print">
+        <h1>Hello World</h1>
+      </main>
+      <footer class="print">
+        Rock the World
+      </footer>
+    </section>
     <hr></hr>
     <div id="print-preview"><h2>Preview</h2></div>
 
@@ -57,8 +70,9 @@
       document.documentElement.style.setProperty('--page-height', `${height}mm`);
 
       const printButton = document.getElementById('print-button');
-      const content = document.getElementById('print-content');
+      const content = document.querySelector('main');
       const preview = document.getElementById('print-preview');
+      const footer = document.querySelector('footer');
 
       const printInWindow = (
         /** @type {{ title: string; content: Node }} */ config,
