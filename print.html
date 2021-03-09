@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <style>
+      :root {
+        --page-width: 0;
+        --page-height: 0;
+      }
+
+      h1 {
+        margin: 0;
+      }
+
+      #print-wrapper {
+        display: flex;
+        justify-content: center;
+      }
+
+      #print-content {
+        background: #eee;
+        padding: 19mm;
+        width: var(--page-width);
+        height: var(--page-height);
+      }
+      #print-content h1 {
+        color: #333;
+        font-family: Helvetica;
+      }
+    </style>
+
+    <h1>Print PDF</h1>
+    <button id="print-button">Print</button>
+    <hr></hr>
+    <div id="print-wrapper">
+      <div id="print-content"><h1>Hello World</h1></div>
+    </div>
+    <hr></hr>
+    <div id="print-preview"><h2>Preview</h2></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+    <script>
+      const heightRatio = 1.414;
+      const width = 210;
+      const height = width * heightRatio;
+      document.documentElement.style.setProperty('--page-width', `${width}mm`);
+      document.documentElement.style.setProperty('--page-height', `${height}mm`);
+
+      const printButton = document.getElementById('print-button');
+      const content = document.getElementById('print-content');
+      const preview = document.getElementById('print-preview');
+
+      const printInWindow = (
+        /** @type {{ title: string; content: Node }} */ config,
+      ) => {
+        const w = window.open(
+          '',
+          'PRINT',
+          'height=650,width=900,top=100,left=150',
+        );
+
+        w.document.title = config.title;
+
+        const root = config.content.cloneNode(true);
+
+        w.document.body.appendChild(root);
+
+        w.print();
+      };
+
+      const printImage = () => {
+        html2canvas(content).then((/** @type {HTMLCanvasElement} */ canvas) => {
+          preview.appendChild(canvas);
+
+          const dataURL = canvas.toDataURL();
+
+          const a = document.createElement('a');
+          a.download = 'Hello.png';
+          a.href = dataURL;
+
+          a.click();
+        });
+      };
+
+      const print = () => {
+        html2canvas(content).then((/** @type {HTMLCanvasElement} */ canvas) => {
+          preview.appendChild(canvas);
+
+          const pdf = new jspdf.jsPDF('p', 'mm', 'a4')
+
+          pdf.addImage(canvas, 'PNG', 0, 0, width, height);
+
+          pdf.save()
+        });
+      };
+
+      printButton.addEventListener('click', () => {
+        print({ title: 'Print', content });
+      });
+    </script>
+  </body>
+</html>
