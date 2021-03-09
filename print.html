@@ -16,9 +16,11 @@
       :root {
         --page-width: 0;
         --page-height: 0;
+        --footer-font-size: 0;
+        --footer-padding: 0;
       }
 
-      h1, p {
+      h1, h2, p {
         margin: 0;
       }
 
@@ -28,11 +30,19 @@
         flex-direction: column;
       }
 
-      #cover,
-      .print{
-        width: var(--page-width);
+      #cover {
         height: var(--page-height);
+      }
+
+      #cover,
+      .print {
+        width: var(--page-width);
+        /* height: var(--page-height); */
         padding: 19mm;
+      }
+
+      .print p {
+        margin-top: 10mm;
       }
 
       main h1 {
@@ -41,8 +51,8 @@
 
       footer {
         width: var(--page-width);
-        font-size: 11;
-        padding: 8mm;
+        font-size: var(--footer-font-size);
+        padding: var(--footer-padding);
         background-color: #555;
         color: white;
         display: flex;
@@ -57,34 +67,57 @@
       <div id="cover">
         <h1>Cover Page</h1>
       </div>
-      <div class="print">
+      <div id="first" class="print">
         <h2>First Page</h2>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur aliquid, at eos pariatur laudantium nobis nostrum! Facilis, perferendis in culpa voluptate corporis accusantium fugiat facere magni dignissimos ipsa. Dolores quas, repellat impedit hic eaque, vero excepturi at ipsum sed eius eveniet laboriosam deleniti vitae ratione. A veniam ullam quaerat placeat dolorum dignissimos, totam nostrum rem necessitatibus. Voluptatibus molestias consequuntur ad quo esse vitae in! Dolores cumque dolor earum nam quos odio itaque rem! Dignissimos blanditiis illo, cum fugiat neque sit quasi facilis autem odio provident tenetur a incidunt voluptate culpa optio doloribus. Ipsa, expedita consectetur iure suscipit numquam dignissimos odit?
+        </p>
       </div>
-      <main class="print">
+      <div id="second" class="print">
+        <h2>Second Page</h2>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem voluptatum alias fugiat sed dignissimos quibusdam accusantium sit voluptatem illum, voluptates odio praesentium eum reprehenderit molestiae tempore. Tempore, sed! Accusamus, unde animi necessitatibus ut veniam eius quidem ipsam delectus, quas deleniti quam a. Libero pariatur quae odio dolore nobis optio non quidem impedit? Fugiat odio quae modi aliquam non explicabo quo. Aliquid porro, ab id nesciunt, harum, ullam alias eius sint expedita distinctio dolore cupiditate aperiam est dolor quo. Quam quisquam cumque nobis necessitatibus facere deleniti saepe et voluptates at, voluptate repudiandae obcaecati temporibus ipsa eveniet totam provident, neque eius natus!
+        </p>
+      </div>
+      <div id="third" class="print">
+        <h2>Third Page</h2>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, magni. Ipsum, sunt saepe. Atque quae quas nesciunt aliquam alias esse, reprehenderit optio id aut libero est. Molestias quae expedita debitis minus quo fuga distinctio soluta saepe asperiores. Fugit, soluta sunt odit accusantium quis, a labore hic quae illo deserunt quos. Quas delectus earum voluptates ab magni nulla saepe dolore. Repellat omnis quos nobis. Repellat voluptatibus autem magni quibusdam ex. Dignissimos, voluptatibus. Quidem esse vero dicta sed asperiores earum minima hic aut harum dolorum eveniet a quaerat beatae nemo, veritatis blanditiis cupiditate magnam. Earum cumque sint maxime modi veniam rerum laboriosam asperiores itaque repudiandae quam, atque similique quis fugiat corporis ipsam optio sunt, in illo? Alias velit natus delectus soluta atque placeat, cum laboriosam qui nam iste vero laudantium eaque animi consectetur quisquam asperiores eveniet! Nobis, eius aliquam. Enim libero quos accusantium similique voluptate fugit sint nihil illum consequatur! Hic, consequatur deserunt tenetur esse molestiae harum quis, mollitia sed dignissimos incidunt amet perferendis ea, sapiente omnis eos quod. Incidunt, deserunt cupiditate expedita reiciendis quasi, minus temporibus ea neque, blanditiis molestiae aperiam quo. Ut ratione modi consequuntur minus laborum, nisi magni aliquid soluta totam, libero, illo suscipit veritatis fugiat! Quaerat iure doloribus non rerum rem labore maxime ea mollitia velit ipsam tenetur maiores nesciunt eum, necessitatibus nobis voluptas alias amet atque eius iusto! Harum magnam, cupiditate quis provident eligendi exercitationem eum fugit praesentium repudiandae, in debitis. Quis dolores culpa labore ullam itaque voluptatibus, omnis ducimus recusandae placeat hic corrupti perferendis quidem rerum? Blanditiis ipsa dolorem praesentium, itaque non labore dolor rerum. Quas aliquid vitae laborum totam sed magnam excepturi nemo corporis, error ducimus ipsa optio, earum aspernatur explicabo debitis blanditiis animi similique, pariatur harum repudiandae nesciunt doloribus praesentium saepe voluptates! Facere cupiditate maxime accusamus deleniti beatae perferendis nihil distinctio in impedit debitis odio amet ipsam soluta, consequatur sint iste earum corrupti suscipit laboriosam provident, eligendi consequuntur atque? Ratione voluptate, dignissimos deserunt, error atque nostrum officia tenetur praesentium quae voluptatibus sit commodi? Veritatis accusamus quaerat magni eius praesentium obcaecati, neque rerum quae similique placeat quo ex soluta in, atque nesciunt, iusto ipsum dolores nobis adipisci repellat repellendus? Esse iusto numquam rerum officia natus sapiente omnis neque! Blanditiis incidunt quaerat itaque, repellendus commodi corporis nostrum doloremque eaque similique voluptas voluptatem autem nam pariatur magni assumenda perferendis iste modi sequi ad expedita enim ducimus reiciendis id. Rem iste voluptate, nam enim mollitia cumque veniam. Illum.
+        </p>
+      </div>
+      <main id="main" class="print">
         <h2>Hello World</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid dolore aut corporis modi, non, alias nostrum nesciunt, deserunt dolorum veritatis saepe impedit vel! Ratione tempora reprehenderit non excepturi, corrupti alias quis sint nam itaque, possimus impedit officia inventore doloribus? Reprehenderit, corporis soluta rem dolorum nisi repellendus molestias ipsam eaque dignissimos quia quod. Sunt, praesentium. Quo asperiores quod quia possimus maiores nulla. Explicabo a quia incidunt iusto ipsam qui consequuntur dolor. Neque autem omnis sequi cum est aliquid odit iusto, dicta deserunt suscipit incidunt sint. Facere enim, tempora inventore itaque harum distinctio ipsum ut at natus provident, aliquam nostrum omnis, maiores ex saepe qui dolor! Corrupti quas inventore cupiditate tempora, necessitatibus sequi recusandae ipsam est itaque distinctio voluptate maxime facere natus, impedit, eos aspernatur corporis eligendi excepturi exercitationem! Tempore omnis similique molestias. Quidem adipisci reprehenderit rem, hic ullam molestiae quasi. Veniam quidem incidunt itaque placeat tenetur rem officia blanditiis, praesentium nostrum quam enim, delectus beatae magni earum eius officiis, ipsam vel? Quae praesentium rerum harum labore neque temporibus quam. Corrupti in, distinctio voluptas inventore voluptate blanditiis neque et, officia, necessitatibus incidunt quos repellendus doloribus labore fugit! Quasi eaque porro harum commodi cum repellendus vitae, animi sapiente dolorem dolore molestiae cupiditate accusamus?</p>
       </main>
-      <div class="print">
+      <div id="last" class="print">
         <h2>Last Page</h2>
       </div>
       <footer>
         <p>Rock the World</p>
-        <span id="pagination">1 / 1</span>
       </footer>
     </section>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
     <script>
+      const paginationWidthMM = 10;
+
       const heightRatio = 1.414;
       const widthMM = 210;
       const heightMM = widthMM * heightRatio;
       document.documentElement.style.setProperty('--page-width', `${widthMM}mm`);
       document.documentElement.style.setProperty('--page-height', `${heightMM}mm`);
+      const footerFontSize = 11;
+      const footerPaddingMM = 8;
+      document.documentElement.style.setProperty('--footer-font-size', `${footerFontSize}`);
+      document.documentElement.style.setProperty('--footer-padding', `${footerPaddingMM}mm`);
 
       const printButton = document.getElementById('print-button');
       const cover = document.getElementById('cover');
       const main = document.querySelector('main');
       const footer = document.querySelector('footer');
+
+      const printSections = Array.from(document.getElementsByClassName('print'));
 
       const printInWindow = (
         /** @type {{ title: string; content: Node }} */ config,
@@ -118,35 +151,46 @@
         const pdf = new jspdf.jsPDF('p', 'mm', 'a4');
 
         Promise.all(
-          [cover].map((element) => {
+          [cover, footer].map((element) => {
             return html2canvas(element);
           }),
-        ).then(([coverCanvas]) => {
+        ).then(([coverCanvas, footerCanvas]) => {
           const pxToMM = (/** @type {number} */ px) => {
             return px * widthMM / coverCanvas.width;
           };
 
+          const footerHeightMM = pxToMM(footerCanvas.height);
+          const footerTopMM = heightMM - footerHeightMM;
+
           pdf.addImage(coverCanvas, 'PNG', 0, 0, widthMM, heightMM);
 
-
           Promise.all(
-            Array.from(document.getElementsByClassName('print')).map((element, i, a) => {
-              const pagination = footer?.querySelector('#pagination');
+            printSections.map((element) => {
+              return html2canvas(element);
+            }),
+            ).then((/** @type {HTMLCanvasElement} */ canvases) => {
+              pdf.addPage();
+              let pageCount = 1;
+              let remaningHeight = heightMM;
 
-              if (pagination) {
-                pagination.innerHTML = `${i + 1} / ${a.length}`;
+              canvases.forEach((canvas) => {
+              const canvasHeightMM = pxToMM(canvas.height);
+
+              let canvasTopMM = heightMM - remaningHeight;
+              remaningHeight -= canvasHeightMM;
+
+              if (remaningHeight < 0) {
+                pdf.addPage();
+                pageCount += 1;
+                remaningHeight = heightMM - canvasHeightMM;
+                canvasTopMM = 0;
               }
 
-              return Promise.all([html2canvas(element), html2canvas(footer)]);
-            }),
-            ).then((/** @type {HTMLCanvasElement[]} */ canvases) => {
-              canvases.forEach(([canvas, footerCanvas]) => {
-              const footerHeightMM = pxToMM(footerCanvas.height);
-              const footerTopMM = heightMM - footerHeightMM;
-
-              pdf.addPage();
-              pdf.addImage(canvas, 'PNG', 0, 0, widthMM, heightMM);
+              pdf.addImage(canvas, 'PNG', 0, canvasTopMM, widthMM, canvasHeightMM);
               pdf.addImage(footerCanvas, 'PNG', 0, footerTopMM, widthMM, footerHeightMM);
+              pdf.setFontSize(footerFontSize);
+              pdf.setTextColor(255, 255, 255);
+              pdf.text(`${pageCount}`, widthMM - footerPaddingMM - paginationWidthMM, footerTopMM + footerPaddingMM + 4);
             });
 
             pdf.save('Hello.pdf');
